@@ -1,6 +1,7 @@
 package entrypoint
 
 import (
+	"os"
 	"sync"
 	"time"
 
@@ -15,7 +16,6 @@ const (
 	//DependencyPrefix is a prefix for env variables
 	DependencyPrefix      = "DEPENDENCY_"
 	JsonSuffix            = "_JSON"
-	resolverSleepInterval = 2
 )
 
 //Resolver is an interface which all dependencies should implement
@@ -71,7 +71,7 @@ func (e Entrypoint) Resolve() {
 				if status, err = dep.IsResolved(e); err != nil {
 					logger.Warning.Printf("Resolving dependency %+v failed: %v .", dep, err)
 				}
-				time.Sleep(resolverSleepInterval * time.Second)
+				time.Sleep(int(os.Getenv("RESOLVER_SLEEP_INTERVAL", "2")) * time.Second)
 			}
 			logger.Info.Printf("Dependency %v is resolved.", dep)
 

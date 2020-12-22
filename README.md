@@ -32,6 +32,15 @@ DEPENDENCY_SERVICE=mysql:mariadb,keystone-api
 
 The new entrypoint will resolve mariadb in the mysql namespace and keystone-api in the same namespace as kubernetes-entrypoint was deployed in.
 
+## Configuration
+
+The kubernetes-entrypoint script supports the following configuration options, provided as env variables
++-------------------------+-----------------------------------------------------------------------+
+| Variable Name           | Description                                                           |
++=========================+=======================================================================+
+|RESOLVER_SLEEP_INTERVAL  | The sleep interval between resolve attempts. Int value, 2 by default  |
++-------------------------+-----------------------------------------------------------------------+
+
 ## Supported types of dependencies
 
 All dependencies are passed as environment variables with the format `DEPENDENCY_<NAME>`, delimited by a colon.
